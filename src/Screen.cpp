@@ -174,7 +174,7 @@ void Screen::drawTriangles(Mat4 const &matrix, Color color)
         //Color color = {(col * 4 + 40) % 256, 0, (col * 6 + 90) % 256, 255};
 
         Vec4 originalColor = {200/256.0, 50/256.0, 50/256.0, 1.0};
-        double Ns = 100;
+        double Ns = 12;
 
         Vec4 illum;
         for (auto const &light : WORLD_LIGHTS)
@@ -192,7 +192,7 @@ void Screen::drawTriangles(Mat4 const &matrix, Color color)
                 int B = NL > 0.00000001 ? 1 : 0;
                 Vec4 const &diffuse = originalColor * light.Id * B * (NL);
                 double inner = ((normal * 2) * NL - L).getZ();
-                Vec4 const &specular = originalColor * light.Is * std::pow(inner > 0.000001 ? inner : 0, 10);
+                Vec4 const &specular = originalColor * light.Is * std::pow(inner > 0.000001 ? inner : 0, Ns);
                 //Vec4 const &diffuse = originalColor * light.Id * B * (NL);
                 //Vec4 const &specular = originalColor * light.Is * B * std::pow(normal.dot(H), Ns);
                 illum = illum + diffuse + specular;
